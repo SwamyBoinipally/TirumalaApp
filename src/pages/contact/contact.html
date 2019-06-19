@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>CONTACT</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item-divider color="secondary">
+      Get in touch
+      </ion-item-divider>
+      <ion-item no-lines (click)="call()">
+          <ion-thumbnail item-left>
+              <ion-img src="../../assets/icon/venkat.jpg"></ion-img>
+          </ion-thumbnail>
+         <ion-icon name="ios-call-outline"></ion-icon>&nbsp;&nbsp;  +91 9676728787 
+         <ion-row style="height: 10px"></ion-row>
+            <ion-icon name="ios-call-outline"></ion-icon>&nbsp;&nbsp;  +91 9959641341
+          </ion-item>
+        
+           <ion-item no-lines (click)="mail()">
+          <ion-icon name="ios-mail-outline"> </ion-icon>&nbsp;&nbsp;  tirumalaphotography357@gmail.com
+          </ion-item>
+          <ion-item-divider color="secondary">
+              Connect
+              </ion-item-divider>
+              <ion-item no-lines>
+                  <ion-icon name="logo-facebook"></ion-icon>&nbsp;&nbsp; <a href="https://m.facebook.com/profile.php?id=584445834962330&ref=content_filter">Tirumala Photography</a> 
+                  
+                   </ion-item>
+
+              
+</ion-content>

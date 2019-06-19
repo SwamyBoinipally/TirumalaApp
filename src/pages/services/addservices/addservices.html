@@ -1,0 +1,36 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>ADD SERVICE</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="service == undefined">
+<ion-item>
+  <ion-label floating>Service Name</ion-label>
+  <ion-input type="text" [(ngModel)]="addServiceObj.serviceName"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label floating>Service Description</ion-label>
+  <ion-input type="text" [(ngModel)]="addServiceObj.serviceDescription"></ion-input>
+</ion-item>
+<ion-row style="height: 20px"></ion-row>
+<button ion-button block (click)="addService(addServiceObj)">ADD</button>
+    </div>
+<div *ngIf="service != undefined">
+    <ion-item>
+        <ion-label floating>Service Name</ion-label>
+        <ion-input type="text" [(ngModel)]="service.serviceName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Service Description</ion-label>
+        <ion-input type="text" [(ngModel)]="service.serviceDescription"></ion-input>
+      </ion-item>
+      <ion-row style="height: 20px"></ion-row>
+      <button ion-button block (click)="updateService(service)">UPDATE</button>
+</div>
+</ion-content>

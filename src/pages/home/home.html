@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>HOME</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item><ion-title text-center>Welcome to Tirumala</ion-title></ion-item>
+  
+  <ion-slides class="image-slider" loop="true">
+    <ion-slide *ngFor="let img of images">
+      <img src="assets/img/{{img}}" class="thumb-img" imageViewer/>
+    </ion-slide>
+  </ion-slides>
+  <!-- <ion-row style="height: 10px"></ion-row> -->
+    <p ion-text color="primary">    We are a team of artistic wedding photographers, designers and techies in India, who have decided to completely change the way wedding photography is pursued. If you're tired of the usual posed photos and cheesy designs with electric pink borders, waterfalls and parrots, and are looking for something classy, modern and cool, then you've come to the right place.</p>
+
+    <p ion-text color="primary">Just because there is a photographer with a camera, you don't have to look into it and smile all the time. The best moments in your wedding are captured naturally when everybody is at ease - its really that simple. Smiles, tears, hugs, stolen glances and the joyful ambience - all the cherished moments that make your wedding memorable and fun. We make sure that we don't miss any of it.</p>
+    
+   <p ion-text color="primary"> Look around the site and drop us a line with your thoughts on our photography style, a favorite photo, your wedding dates, or even just to say hello!</p>
+
+</ion-content>
