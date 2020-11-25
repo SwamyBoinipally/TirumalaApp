@@ -26,7 +26,8 @@
         <ion-icon name="lock" item-start class="text-primary"></ion-icon>
         Password
       </ion-label>
-      <ion-input type="password" [(ngModel)]="user.password" formControlName="password"></ion-input>
+      <ion-input name="password" [(ngModel)]="user.password" formControlName="password" [type]="showPassword ? 'text': 'password'"></ion-input>
+      <ion-icon slot="end" class="eyeIcon" [name]="passToggleIcon" (click)="togglePassword()" class="text-primary" item-right style="margin-top: 44px"></ion-icon>
     </ion-item>
 
     <p text-right ion-text color="secondary" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
@@ -55,7 +56,7 @@
           </ion-col>
           <ion-col col-4>
               <!-- *ngIf="(googleUser | async) || {} as googleUser" (tap)="googleLogin()" -->
-            <button ion-button icon-only block class="btn-gplus" (tap)="googleLogin()">
+            <button ion-button icon-only block class="btn-gplus" (click)="googleLogin()">
               <ion-icon name="logo-googleplus"></ion-icon>
             </button>
           </ion-col>

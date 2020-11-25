@@ -4,12 +4,22 @@
 
       <ion-grid>
         <ion-row>
-          <ion-col col-4>
+          <div *ngIf="picture ; else noPicture">
+            <ion-col col-4>
+              <div class="user-avatar">
+                <img src="{{picture}}">
+                <!-- <ion-icon ios="ios-person" md="md-person"></ion-icon> -->
+              </div>
+          </ion-col>
+          </div>
+          <ng-template #noPicture>
+            <ion-col col-4 #noPicture>
               <div class="user-avatar">
                 <img src="../assets/icon/person.jpg">
                 <!-- <ion-icon ios="ios-person" md="md-person"></ion-icon> -->
               </div>
           </ion-col>
+          </ng-template>
           <ion-col padding-top col-8>
             <h2 ion-text class="no-margin bold text-white">
               {{name}}
@@ -42,7 +52,7 @@
 
     <ion-list class="user-list">
       <button ion-item menuClose class="text-1x" *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon" color="primary"></ion-icon>
+        <!-- <ion-icon item-left [name]="p.icon" color="primary"></ion-icon> -->
         <span ion-text color="primary"><strong>{{p.title}}</strong></span>
       </button>
     </ion-list>

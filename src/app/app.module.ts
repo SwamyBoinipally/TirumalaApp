@@ -10,8 +10,8 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import {AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import {FIREBASSE_CONFIG} from '../app/app.firebase.config';
+//import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import {FIREBASSE_CONFIG} from '../app/app.firebase.config';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 
 import { MyApp } from './app.component';
@@ -27,7 +27,7 @@ import { EditservicesPage } from '../pages/services/editservices/editservices';
 import { UpdatesPage } from '../pages/updates/updates';
 import { YoutubeProvider } from '../providers/youtube/youtube';
 import { HttpClientModule } from "@angular/common/http";
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { PlaylistPage } from '../pages/updates/playlist/playlist';
 // import { CallNumber } from '@ionic-native/call-number';
@@ -35,6 +35,10 @@ import { PlaylistPage } from '../pages/updates/playlist/playlist';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { CommonModule } from '@angular/common';
 import { GoogleLoginComponent } from '../components/google-login/google-login';
+import { SlotBookingPage } from '../pages/slot-booking/slot-booking';
+import { IonicStorageModule } from '@ionic/storage';
+import {FIREBASSE_CONFIG} from '../app/utils/constants';
+import { ThemeAlertProvider } from '../providers/shared-service/theme-alert';
 
 @NgModule({
   declarations: [
@@ -49,12 +53,13 @@ import { GoogleLoginComponent } from '../components/google-login/google-login';
     EditservicesPage,
     UpdatesPage,
     PlaylistPage,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    SlotBookingPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
+    // HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASSE_CONFIG),
     AngularFireAuthModule,
@@ -62,8 +67,9 @@ import { GoogleLoginComponent } from '../components/google-login/google-login';
     IonicImageViewerModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFirestoreModule
-  
+    //AngularFirestoreModule,
+    IonicStorageModule.forRoot()
+
   ],
   exports: [GoogleLoginComponent],
   bootstrap: [IonicApp],
@@ -74,11 +80,12 @@ import { GoogleLoginComponent } from '../components/google-login/google-login';
     SignupPage,
     ServicesPage,
     AddservicesPage,
-    AboutPage, 
+    AboutPage,
     ContactPage,
     EditservicesPage,
     UpdatesPage,
-    PlaylistPage
+    PlaylistPage,
+    SlotBookingPage
 
   ],
   providers: [
@@ -88,9 +95,11 @@ import { GoogleLoginComponent } from '../components/google-login/google-login';
     SharedServiceProvider,
     YoutubeProvider,
     YoutubeVideoPlayer,
-    GooglePlus
+    GooglePlus,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ThemeAlertProvider
     // CallNumber
-    
+
   ]
 })
 export class AppModule {}

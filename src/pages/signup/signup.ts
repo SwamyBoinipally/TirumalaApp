@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Nav, ToastController } from 'ionic-angular';
 import { USER } from './../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -16,13 +15,19 @@ export class SignupPage {
   registerForm: FormGroup;
 
   @ViewChild(Nav) nav: Nav;
-  user = {} as USER;
+  showPassword: Boolean = false;
+  passToggleIcon = 'eye';
+  signupform: FormGroup;
+  userData = {"username": "", "email": "", "name": "","password": "" } as USER;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private aFauth: AngularFireAuth, 
-    private alertCtrl: AlertController, private loadCtrl:LoadingController, private formBuilder: FormBuilder,
-    private toastCtrl: ToastController ) {
-      this.registerForm = formBuilder.group({
-        'email': ['', Validators.compose([Validators.required])],
-        'password': ['', Validators.compose([Validators.required])]
+    private alertCtrl: AlertController, private loadCtrl:LoadingController, private toastCtrl: ToastController, private storage: Storage ) {
+      let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+      this.signupform = new FormGroup({
+        username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
+        name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
       });
   }
 
@@ -30,14 +35,17 @@ export class SignupPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  async register(user: USER) {
+
+  async register(userData: USER) {
+    this.storage.set('registeredUser', userData);
+    console.log('userdata;;;',userData);
     let loading = this.loadCtrl.create({
       content: 'Please wait...'
     });
     setTimeout(() => {
       loading.dismiss();
     }, 1000);
-      const result = await this.aFauth.auth.createUserWithEmailAndPassword(user.email, user.password)
+      this.aFauth.auth.createUserWithEmailAndPassword(userData.email, userData.password)
       .then(data =>{
         console.log("Register Data:", data);
         loading.dismiss();
@@ -76,6 +84,11 @@ export class SignupPage {
   // go to login page
   login() {
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  public togglePassword(): void {
+    this.showPassword = !this.showPassword;
+    this.passToggleIcon = this.passToggleIcon == 'eye' ? this.passToggleIcon = 'eye-off' : this.passToggleIcon = 'eye'
   }
 
 }

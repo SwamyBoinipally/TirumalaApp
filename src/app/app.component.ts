@@ -11,6 +11,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { UpdatesPage } from '../pages/updates/updates';
 
 import { Events } from 'ionic-angular';
+import { SlotBookingPage } from '../pages/slot-booking/slot-booking';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,19 +20,28 @@ export class MyApp {
   name: any;
   email: any;
   icon:string;
+  picture:any;
+
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, 
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private events: Events, private alertCtrl: AlertController) {
     this.initializeApp();
-    events.subscribe('data', (data) => {
-      this.email= data.user.email;
-      this.name = this.email.substring(0, this.email.lastIndexOf("@"));
-      console.log('Welcome', name);
+    this.events.subscribe('profile:isLogin', (profileData: any, isLogin: any) => {
+      console.log('profileData in app.com', profileData, isLogin);
+      if (isLogin.isDirectLogin == 'true') {
+        this.email = profileData.user.email;
+        this.name = this.email.substring(0, this.email.lastIndexOf("@"));
+        console.log('Welcome', name);
+      } else {
+        this.picture = profileData.picture;
+        this.name = profileData.given_name.charAt(0).toUpperCase() + profileData.given_name.slice(1);
+      }
+
     });
     // used for an example of ngFor and navigation
     this.pages = [
@@ -39,8 +49,9 @@ export class MyApp {
       { title: 'Services', component: ServicesPage},
       { title: 'Updates', component: UpdatesPage},
       { title: 'About', component: AboutPage},
-      { title: 'Contact', component: ContactPage}
-          
+      { title: 'Contact', component: ContactPage},
+      {title:'Slot Booking', component: SlotBookingPage}
+
     ];
 
   }
@@ -60,7 +71,7 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
   logout() {
-    
+
     let alert = this.alertCtrl.create({
       title: 'Are you sure!!',
       message: 'Do you want logout?',
